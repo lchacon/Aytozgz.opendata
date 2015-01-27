@@ -16,7 +16,28 @@ import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoMotoVO;
 public class AparcamientoMotoDAO {
 
 	List<AparcamientoMotoVO> getLstAparcamientoMoto() {
-		List<AparcamientoMotoVO> l = null;
+		List<AparcamientoMotoVO> l = new ArrayList<AparcamientoMotoVO>();
+
+		Connection conn = CrearConexion();
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rset = stmt
+					.executeQuery("SELECT * FROM APARCAMIENTOSMOTOS");
+			while (rset.next()) {
+				AparcamientoMotoVO apMoto = new AparcamientoMotoVO(
+						rset.getDouble("latitud"), rset.getDouble("longitud"),
+						rset.getString("titulo"), rset.getString("icono"),
+						rset.getString("descripcion"),
+						rset.getString("last_update"), rset.getInt("plazas"),
+						rset.getInt("id"));
+				l.add(apMoto);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return l;
 	}
@@ -28,8 +49,22 @@ public class AparcamientoMotoDAO {
 	}
 
 	public static void main(String args[]) {
+		AparcamientoMotoDAO motoDAO = new AparcamientoMotoDAO();
+		List<AparcamientoMotoVO>  list = motoDAO.getLstAparcamientoMoto();
+		
+		Iterator iter = list.iterator();
+		while (iter.hasNext())
+		  System.out.println(iter.next());
+	}
+
+	public static Connection CrearConexion() {
+
 		try {
-			Conexion();
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection conn = DriverManager.getConnection(
+					"jdbc:oracle:thin:test/test@54.154.192.80:1521:XE", "test",
+					"test");
+			return conn;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,28 +72,7 @@ public class AparcamientoMotoDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
 
-	public static void Conexion() throws SQLException, ClassNotFoundException {
-		
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection conn = DriverManager.getConnection(
-					"jdbc:oracle:thin:test/test@54.154.192.80:1521:XE", "test",
-					"test");
-			// driver@machineName:port:SID , userid, password
-
-			Statement stmt = conn.createStatement();
-			ResultSet rset = stmt
-					.executeQuery("SELECT * FROM APARCAMIENTOSMOTOS");
-			while (rset.next()){
-				//System.out.println(rset.getString(0)); // Print col 1
-				System.out.println(rset.getString(1)); 
-				System.out.println(rset.getString(2)); 
-				System.out.println(rset.getString(3)); 
-				System.out.println(rset.getString(4));
-				System.out.println(rset.getString(5)); 
-				System.out.println("______"); 
-			}
-			stmt.close();
+		return null;
 	}
 }
