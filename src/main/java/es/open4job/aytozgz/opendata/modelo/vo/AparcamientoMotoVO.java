@@ -2,22 +2,21 @@ package es.open4job.aytozgz.opendata.modelo.vo;
 
 import java.util.Date;
 
-public class AparcamientoMotoVO 
-{
-	
+public class AparcamientoMotoVO {
+
 	private double latitud;
-	private double longitud; 
-   	String title;
-   	String icon;
-   	String descripcion;
-   	Date lastUpdated;
-   	int plazas; 
-   	int id;
-   	
+	private double longitud;
+	String title;
+	String icon;
+	String descripcion;
+	Date lastUpdated;
+	int plazas;
+	int id;
+
 	public AparcamientoMotoVO(double latitud, double longitud, String title,
 			String icon, String descripcion, Date lastUpdated, int plazas,
 			int id) {
-		super();
+
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.title = title;
@@ -26,6 +25,7 @@ public class AparcamientoMotoVO
 		this.lastUpdated = lastUpdated;
 		this.plazas = plazas;
 		this.id = id;
+
 	}
 
 	public double getLatitud() {
@@ -91,7 +91,5 @@ public class AparcamientoMotoVO
 	public void setId(int id) {
 		this.id = id;
 	}
-   	
-   	
-   	
+
 }
