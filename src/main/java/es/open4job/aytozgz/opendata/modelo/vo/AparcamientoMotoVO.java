@@ -9,12 +9,12 @@ public class AparcamientoMotoVO {
 	String title;
 	String icon;
 	String descripcion;
-	Date lastUpdated;
+	String lastUpdated;
 	int plazas;
 	int id;
 
 	public AparcamientoMotoVO(double latitud, double longitud, String title,
-			String icon, String descripcion, Date lastUpdated, int plazas,
+			String icon, String descripcion, String lastUpdated, int plazas,
 			int id) {
 
 		this.latitud = latitud;
@@ -68,11 +68,11 @@ public class AparcamientoMotoVO {
 		this.descripcion = descripcion;
 	}
 
-	public Date getLastUpdated() {
+	public String getLastUpdated() {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(Date lastUpdated) {
+	public void setLastUpdated(String lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 
