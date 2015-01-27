@@ -18,10 +18,7 @@ public class AparcamientoMotoVO
 			String icon, String descripcion, Date lastUpdated, int plazas,
 			int id) {
 		super();
-		this.latitud = latitud;/**
-		 * Hello world!
-		 *
-		 */
+		this.latitud = latitud;
 		this.longitud = longitud;
 		this.title = title;
 		this.icon = icon;
