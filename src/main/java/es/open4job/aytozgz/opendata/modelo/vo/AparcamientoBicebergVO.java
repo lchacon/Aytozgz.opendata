@@ -1,12 +1,12 @@
 package es.open4job.aytozgz.opendata.modelo.vo;
 
 public class AparcamientoBicebergVO {
-	int id;
-	double latitud;
-	double longitud;
-	String icon;
-	String title;
-	String link;
+	private int id;
+	private double latitud;
+	private double longitud;
+	private String icon;
+	private String title;
+	private String link;
 	
 	public AparcamientoBicebergVO(int id, double latitud, double longitud,
 			String icon, String description, String link) {

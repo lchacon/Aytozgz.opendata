@@ -6,12 +6,12 @@ public class AparcamientoMotoVO {
 
 	private double latitud;
 	private double longitud;
-	String title;
-	String icon;
-	String descripcion;
-	String lastUpdated;
-	int plazas;
-	int id;
+	private String title;
+	private String icon;
+	private String descripcion;
+	private String lastUpdated;
+	private int plazas;
+	private int id;
 
 	public AparcamientoMotoVO(double latitud, double longitud, String title,
 			String icon, String descripcion, String lastUpdated, int plazas,
