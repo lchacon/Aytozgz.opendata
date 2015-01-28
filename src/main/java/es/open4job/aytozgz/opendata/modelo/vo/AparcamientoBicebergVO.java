@@ -7,7 +7,7 @@ public class AparcamientoBicebergVO {
 	private String icon;
 	private String title;
 	private String link;
-	
+
 	public AparcamientoBicebergVO(int id, double latitud, double longitud,
 			String icon, String description, String link) {
 		super();
@@ -16,7 +16,7 @@ public class AparcamientoBicebergVO {
 		this.longitud = longitud;
 		this.icon = icon;
 		this.title = description;
-		this.link= link;
+		this.link = link;
 	}
 
 	public int getId() {
@@ -65,5 +65,12 @@ public class AparcamientoBicebergVO {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public String toString() {
+		return ("AparcamientoBiceberVO = [ " + "id = " + id + ", "
+				+ "latitud = " + latitud + ", " + "longitud = " + longitud
+				+ ", " + "icon = " + icon + ", " + "title = " + title + ", "
+				+ "link = " + link + " ]");
 	}
 }
