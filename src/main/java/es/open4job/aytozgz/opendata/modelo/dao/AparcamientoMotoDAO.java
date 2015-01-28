@@ -10,10 +10,6 @@ import java.util.logging.Logger;
 
 import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoMotoVO;
 
-/**
- * Hello world!
- *
- */
 public class AparcamientoMotoDAO extends GenericDAO {
 
 	public static final Logger logger = Logger
@@ -78,20 +74,64 @@ public class AparcamientoMotoDAO extends GenericDAO {
 		return lsitAparcamientoMotos;
 	}
 
-	AparcamientoMotoVO getDetailAparcamientoMoto(AparcamientoMotoVO moto) {
-		AparcamientoMotoVO motito = null;
+	// Detalles de Aparcamiento de motos
 
-		return motito;
+	public AparcamientoMotoVO getDetailAparcamientoMoto(int motoId) {
+
+		AparcamientoMotoVO aptoMoto = null;
+		String query = "SELECT * FROM APARCAMIENTOSMOTOS WHERE id = " + motoId;
+		ResultSet rset = null;
+		Statement stmt = null;
+
+		try {
+			this.abrirConexion();
+			stmt = connection.createStatement();
+			rset = stmt.executeQuery(query);
+
+			while (rset.next()) {
+				AparcamientoMotoVO moto = new AparcamientoMotoVO(
+						rset.getDouble("latitud"), rset.getDouble("longitud"),
+						rset.getString("titulo"), rset.getString("icono"),
+						rset.getString("descripcion"),
+						rset.getString("last_update"), rset.getInt("plazas"),
+						rset.getInt("id"));
+				aptoMoto = moto;
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, "SQLException : " + e.getMessage());
+		} catch (ClassNotFoundException e) {
+			logger.log(Level.SEVERE,
+					"ClassNotFoundException : " + e.getMessage());
+
+		} finally {
+
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (Exception e) {
+				}
+			}
+
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (Exception e) {
+				}
+			}
+
+		}
+		this.cerrarConexion();
+		return aptoMoto;
+
 	}
-/*
-	// prueba: muestra el numero de filas de la bd
-	public static void main(String args[]) {
-		AparcamientoMotoDAO motoDAO = new AparcamientoMotoDAO(
-				"oracle.jdbc.driver.OracleDriver",
-				"jdbc:oracle:thin:test/test@54.154.192.80:1521:XE", "test",
-				"test");
-		List<AparcamientoMotoVO> list = motoDAO.getLstAparcamientoMoto();
-		System.out.println(list.size());
-	}
-*/
+
+	/*
+	 * // prueba: muestra el numero de filas de la bd public static void
+	 * main(String args[]) { AparcamientoMotoDAO motoDAO = new
+	 * AparcamientoMotoDAO( "oracle.jdbc.driver.OracleDriver",
+	 * "jdbc:oracle:thin:test/test@54.154.192.80:1521:XE", "test", "test");
+	 * List<AparcamientoMotoVO> list = motoDAO.getLstAparcamientoMoto();
+	 * System.out.println(list.size()); }
+	 */
 }

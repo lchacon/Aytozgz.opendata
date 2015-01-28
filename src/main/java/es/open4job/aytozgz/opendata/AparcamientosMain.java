@@ -41,6 +41,18 @@ public class AparcamientosMain {
 			}
 		}
 
+		//Detalles Aparcamiento Moto
+				AparcamientoMotoVO motoDetalle = aparcamientoMotoDAO.getDetailAparcamientoMoto(222);
+				System.out.println(	"Descripción: "+motoDetalle.getDescripcion()+" "+
+									"Icono: "+motoDetalle.getIcon()+" "+
+									"Id: "+motoDetalle.getId()+" "+
+									"Ultima Actualización: "+motoDetalle.getLastUpdated()+" "+
+									"Latitud: "+motoDetalle.getLatitud()+" "+
+									"Longitud: "+motoDetalle.getLongitud()+" "+
+									"Plazas: "+motoDetalle.getPlazas()+" "+
+									"Titulo: "+motoDetalle.getTitle());
+			
+		
 		// AparcamientoBiceberg
 		AparcamientoBicebergDAO aparcamientoBicebergDAO = new AparcamientoBicebergDAO(
 				driver, url, user, password);
