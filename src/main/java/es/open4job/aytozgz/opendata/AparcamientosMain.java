@@ -23,6 +23,9 @@ public class AparcamientosMain {
 		String url = "jdbc:oracle:thin:" + user + "/" + password + "@" + host
 				+ ":" + puerto + ":" + sid;
 
+		boolean borrarMotoCSV = true;
+		boolean borrarBicebergCSV = true;
+
 		// AparcamientoMoto
 		AparcamientoMotoDAO aparcamientoMotoDAO = new AparcamientoMotoDAO(
 				driver, url, user, password);
@@ -38,21 +41,20 @@ public class AparcamientosMain {
 				AparcamientoMotoVO moto = iterator.next();
 				System.out.println(moto.toString());
 
+				// borro el CSV para que no se dupliquen los datos
+				moto.borrarArchivoCSV(borrarMotoCSV);
+				borrarMotoCSV = false; // para que solo se ejecute una vez
+
+				// creo archivo CSV en local /var/www/html/aparcamientoMoto.csv
+				moto.escribirCSV();
 			}
 		}
 
-		//Detalles Aparcamiento Moto
-				AparcamientoMotoVO motoDetalle = aparcamientoMotoDAO.getDetailAparcamientoMoto(222);
-				System.out.println(	"Descripción: "+motoDetalle.getDescripcion()+" "+
-									"Icono: "+motoDetalle.getIcon()+" "+
-									"Id: "+motoDetalle.getId()+" "+
-									"Ultima Actualización: "+motoDetalle.getLastUpdated()+" "+
-									"Latitud: "+motoDetalle.getLatitud()+" "+
-									"Longitud: "+motoDetalle.getLongitud()+" "+
-									"Plazas: "+motoDetalle.getPlazas()+" "+
-									"Titulo: "+motoDetalle.getTitle());
-			
-		
+		// Detalles Aparcamiento Moto
+		AparcamientoMotoVO motoDetalle = aparcamientoMotoDAO
+				.getDetailAparcamientoMoto(222);
+		System.out.println(motoDetalle.toString());
+
 		// AparcamientoBiceberg
 		AparcamientoBicebergDAO aparcamientoBicebergDAO = new AparcamientoBicebergDAO(
 				driver, url, user, password);
@@ -63,8 +65,16 @@ public class AparcamientosMain {
 		if (bicebergs != null) {
 			Iterator<AparcamientoBicebergVO> iterator = bicebergs.iterator();
 			while (iterator.hasNext()) {
+				
 				AparcamientoBicebergVO biceberg = iterator.next();
 				System.out.println(biceberg.toString());
+				
+				// borro el CSV para que no se dupliquen los datos
+				biceberg.borrarArchivoCSV(borrarBicebergCSV);
+				borrarBicebergCSV = false; // para que solo se ejecute una vez
+
+				// creo archivo CSV en local /var/www/html/aparcamientoBiceberg.csv
+				biceberg.escribirCSV();
 			}
 		}
 	}

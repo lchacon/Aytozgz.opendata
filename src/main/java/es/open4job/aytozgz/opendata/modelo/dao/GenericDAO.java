@@ -65,7 +65,8 @@ public class GenericDAO {
 			connection = DriverManager.getConnection(url, user, password);
 
 		} catch (ClassNotFoundException e) {
-			logger.log(Level.SEVERE, "ClassNotFoundException : " + e.getMessage());
+			logger.log(Level.SEVERE,
+					"ClassNotFoundException : " + e.getMessage());
 			throw e;
 		} catch (SQLException e) {
 			logger.log(Level.SEVERE, "SQLException : " + e.getMessage());
