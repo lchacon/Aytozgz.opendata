@@ -3,13 +3,23 @@ package es.open4job.aytozgz.opendata;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
 import es.open4job.aytozgz.opendata.modelo.dao.AparcamientoBicebergDAO;
 import es.open4job.aytozgz.opendata.modelo.dao.AparcamientoMotoDAO;
 import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoBicebergVO;
 import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoMotoVO;
+import es.open4job.report.Reports;
 
 public class AparcamientosMain {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JRException {
 
 		String driver = "oracle.jdbc.driver.OracleDriver";
 
@@ -62,20 +72,27 @@ public class AparcamientosMain {
 		List<AparcamientoBicebergVO> bicebergs = aparcamientoBicebergDAO
 				.getLstAparcamientoBiceberg();
 
+		Reports reportBiceberg = new Reports();
+
 		if (bicebergs != null) {
+			reportBiceberg.addBicebergs(bicebergs);
 			Iterator<AparcamientoBicebergVO> iterator = bicebergs.iterator();
 			while (iterator.hasNext()) {
-				
 				AparcamientoBicebergVO biceberg = iterator.next();
 				System.out.println(biceberg.toString());
-				
-				// borro el CSV para que no se dupliquen los datos
-				biceberg.borrarArchivoCSV(borrarBicebergCSV);
-				borrarBicebergCSV = false; // para que solo se ejecute una vez
-
-				// creo archivo CSV en local /var/www/html/aparcamientoBiceberg.csv
-				biceberg.escribirCSV();
 			}
 		}
+
+		JasperReport reporte = (JasperReport) JRLoader
+				.loadObjectFromFile("plantillas/plantillaBiceberg.jasper");
+		JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null,
+				 new JRBeanCollectionDataSource(bicebergs));
+
+		JRExporter exporter = new JRPdfExporter();
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+		exporter.setParameter(JRExporterParameter.OUTPUT_FILE,
+				new java.io.File("reporteBiceberg.pdf"));
+		exporter.exportReport();
+		
 	}
 }

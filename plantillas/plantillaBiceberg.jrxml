@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="plantillaBiceberg" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ad4dc44-8b0d-4b0c-a829-426e93dc09ce">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="latitud" class="java.lang.Number"/>
+	<field name="longitud" class="java.lang.Number"/>
+	<field name="icon" class="java.lang.String"/>
+	<field name="link" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="116" y="27" width="305" height="41" uuid="22f71987-af10-4643-96cf-885e450c0e1f"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="16"/>
+				</textElement>
+				<text><![CDATA[Informe de Aparcamientos Biceberg]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="16" width="22" height="20" uuid="a2b6f6e0-d635-4226-ba66-ffcb8c9ef2ca"/>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="52" y="16" width="100" height="20" uuid="f61c21cd-e559-4a4c-b698-3d0471c0fdce"/>
+				<text><![CDATA[Titulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="16" width="72" height="20" uuid="de5ea490-7cfb-4c70-950b-75944b7eb16b"/>
+				<text><![CDATA[Latitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="16" width="72" height="20" uuid="255bf4f9-7133-48fe-aebb-9754e2f364b9"/>
+				<text><![CDATA[Longitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="16" width="52" height="20" uuid="b9c2f865-776d-4896-869f-aefc3393096a"/>
+				<text><![CDATA[Icono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="16" width="100" height="20" uuid="2339d949-4270-46b6-be09-b5a8af58f4e9"/>
+				<text><![CDATA[Link]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="76" splitType="Stretch">
+			<textField>
+				<reportElement x="52" y="48" width="100" height="20" uuid="1dec9cca-d090-49e9-b9bf-f761670cd5f0"/>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="48" width="52" height="20" uuid="e4fc55fd-3f7b-459e-858c-719a09c744cf"/>
+				<textFieldExpression><![CDATA[$F{icon}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="16" y="48" width="22" height="20" uuid="1873e1e5-b4e6-47e0-a035-cd283cadd8b5"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="48" width="72" height="20" uuid="ea1b1880-dcda-4ac6-9e30-06f8ff582007"/>
+				<textFieldExpression><![CDATA[$F{latitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="247" y="48" width="72" height="20" uuid="bc1dd635-1d05-48ad-91eb-1feba16d3f96"/>
+				<textFieldExpression><![CDATA[$F{longitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="48" width="100" height="20" uuid="5c5049a8-8ec5-48ec-b723-9d7983be072c"/>
+				<textFieldExpression><![CDATA[$F{link}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
