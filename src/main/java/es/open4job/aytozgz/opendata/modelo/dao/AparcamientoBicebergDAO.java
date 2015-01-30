@@ -1,5 +1,6 @@
 package es.open4job.aytozgz.opendata.modelo.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,13 +27,31 @@ public class AparcamientoBicebergDAO extends GenericDAO {
 
 		AparcamientoBicebergVO biceberg = null;
 		String query = "SELECT * FROM BICEBERG";
-		Statement stmt = null;
+		String queryInsert = "INSERT INTO BICEBERG(LINK,TITULO,ICONO,LATITUD,LONGITUD,ID) "
+				+ "VALUES(?,?,?,?,?,?)";
+		String queryUpdate = "UPDATE BICEBERG SET LINK=? WHERE ID=?";
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
 		try {
 			this.abrirConexion();
-			stmt = connection.createStatement();
-			rs = stmt.executeQuery(query);
+			/*stmt = connection.prepareStatement(queryInsert);
+			stmt.setString(1,"linko");
+			stmt.setString(2,"titulin");
+			stmt.setString(3,"iconico");
+			stmt.setDouble(4, 325);
+			stmt.setDouble(5, 156);
+			stmt.setInt(6, 4);
+			rs = stmt.executeQuery();
+			stmt.close();*/
+			stmt = connection.prepareStatement(queryUpdate);
+			stmt.setString(1,"linkITO");
+			stmt.setInt(2, 4);
+			int registros = stmt.executeUpdate();
+			stmt.close();
+			System.out.println(registros);
+			stmt = connection.prepareStatement(query);
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				biceberg = new AparcamientoBicebergVO(rs.getInt("id"),
