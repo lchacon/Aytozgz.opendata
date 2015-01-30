@@ -75,6 +75,7 @@ public class AparcamientoMotoDAO extends GenericDAO {
 	}
 
 	// Detalles de Aparcamiento de motos
+
 	public AparcamientoMotoVO getDetailAparcamientoMoto(int motoId) {
 
 		AparcamientoMotoVO aptoMoto = null;
@@ -88,11 +89,13 @@ public class AparcamientoMotoDAO extends GenericDAO {
 			rset = stmt.executeQuery(query);
 
 			while (rset.next()) {
-				aptoMoto = new AparcamientoMotoVO(rset.getDouble("latitud"),
-						rset.getDouble("longitud"), rset.getString("titulo"),
-						rset.getString("icono"), rset.getString("descripcion"),
+				aptoMoto = new AparcamientoMotoVO(
+						rset.getDouble("latitud"), rset.getDouble("longitud"),
+						rset.getString("titulo"), rset.getString("icono"),
+						rset.getString("descripcion"),
 						rset.getString("last_update"), rset.getInt("plazas"),
 						rset.getInt("id"));
+				
 			}
 			stmt.close();
 		} catch (SQLException e) {

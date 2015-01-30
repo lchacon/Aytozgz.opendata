@@ -2,6 +2,8 @@ package es.open4job.aytozgz.opendata;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.open4job.aytozgz.opendata.modelo.dao.AparcamientoBicebergDAO;
 import es.open4job.aytozgz.opendata.modelo.dao.AparcamientoMotoDAO;
@@ -9,6 +11,10 @@ import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoBicebergVO;
 import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoMotoVO;
 
 public class AparcamientosMain {
+	
+	public static final Logger logger = Logger
+			.getLogger(AparcamientoMotoDAO.class.getName());
+
 	public static void main(String[] args) {
 
 		String driver = "oracle.jdbc.driver.OracleDriver";
@@ -43,7 +49,18 @@ public class AparcamientosMain {
 
 		//Detalles Aparcamiento Moto
 				AparcamientoMotoVO motoDetalle = aparcamientoMotoDAO.getDetailAparcamientoMoto(222);
-				System.out.println(	"Descripción: "+motoDetalle.getDescripcion()+" "+
+				String detalles="Descripción: "+motoDetalle.getDescripcion()+" "+
+						"Icono: "+motoDetalle.getIcon()+" "+
+						"Id: "+motoDetalle.getId()+" "+
+						"Ultima Actualización: "+motoDetalle.getLastUpdated()+" "+
+						"Latitud: "+motoDetalle.getLatitud()+" "+
+						"Longitud: "+motoDetalle.getLongitud()+" "+
+						"Plazas: "+motoDetalle.getPlazas()+" "+
+						"Titulo: "+motoDetalle.getTitle();
+				
+				logger.info(detalles);
+				
+				/*System.out.println(	"Descripción: "+motoDetalle.getDescripcion()+" "+
 									"Icono: "+motoDetalle.getIcon()+" "+
 									"Id: "+motoDetalle.getId()+" "+
 									"Ultima Actualización: "+motoDetalle.getLastUpdated()+" "+
@@ -51,7 +68,7 @@ public class AparcamientosMain {
 									"Longitud: "+motoDetalle.getLongitud()+" "+
 									"Plazas: "+motoDetalle.getPlazas()+" "+
 									"Titulo: "+motoDetalle.getTitle());
-			
+				 */
 		
 		// AparcamientoBiceberg
 		AparcamientoBicebergDAO aparcamientoBicebergDAO = new AparcamientoBicebergDAO(
