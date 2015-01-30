@@ -16,7 +16,6 @@ import es.open4job.aytozgz.opendata.modelo.dao.AparcamientoBicebergDAO;
 import es.open4job.aytozgz.opendata.modelo.dao.AparcamientoMotoDAO;
 import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoBicebergVO;
 import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoMotoVO;
-import es.open4job.report.Reports;
 
 public class AparcamientosMain {
 	public static void main(String[] args) throws JRException {
@@ -72,10 +71,8 @@ public class AparcamientosMain {
 		List<AparcamientoBicebergVO> bicebergs = aparcamientoBicebergDAO
 				.getLstAparcamientoBiceberg();
 
-		Reports reportBiceberg = new Reports();
 
 		if (bicebergs != null) {
-			reportBiceberg.addBicebergs(bicebergs);
 			Iterator<AparcamientoBicebergVO> iterator = bicebergs.iterator();
 			while (iterator.hasNext()) {
 				AparcamientoBicebergVO biceberg = iterator.next();
