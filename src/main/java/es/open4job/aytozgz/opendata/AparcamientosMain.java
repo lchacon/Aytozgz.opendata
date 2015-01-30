@@ -71,7 +71,6 @@ public class AparcamientosMain {
 		List<AparcamientoBicebergVO> bicebergs = aparcamientoBicebergDAO
 				.getLstAparcamientoBiceberg();
 
-
 		if (bicebergs != null) {
 			Iterator<AparcamientoBicebergVO> iterator = bicebergs.iterator();
 			while (iterator.hasNext()) {
@@ -83,13 +82,13 @@ public class AparcamientosMain {
 		JasperReport reporte = (JasperReport) JRLoader
 				.loadObjectFromFile("plantillas/plantillaBiceberg.jasper");
 		JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null,
-				 new JRBeanCollectionDataSource(bicebergs));
+				new JRBeanCollectionDataSource(bicebergs));
 
 		JRExporter exporter = new JRPdfExporter();
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 		exporter.setParameter(JRExporterParameter.OUTPUT_FILE,
 				new java.io.File("reporteBiceberg.pdf"));
 		exporter.exportReport();
-		
+
 	}
 }
