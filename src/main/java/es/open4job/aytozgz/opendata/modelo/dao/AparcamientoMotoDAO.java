@@ -1,5 +1,6 @@
 package es.open4job.aytozgz.opendata.modelo.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,14 +27,15 @@ public class AparcamientoMotoDAO extends GenericDAO {
 
 		AparcamientoMotoVO motoVO = null;
 		String query = "SELECT * FROM APARCAMIENTOSMOTOS";
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
 		try {
 
 			this.abrirConexion();
-			stmt = connection.createStatement();
-			rs = stmt.executeQuery(query);
+			//stmt = connection.createStatement();
+			stmt = connection.prepareStatement(query);
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				motoVO = new AparcamientoMotoVO(rs.getDouble("latitud"),
@@ -79,23 +81,25 @@ public class AparcamientoMotoDAO extends GenericDAO {
 	public AparcamientoMotoVO getDetailAparcamientoMoto(int motoId) {
 
 		AparcamientoMotoVO aptoMoto = null;
-		String query = "SELECT * FROM APARCAMIENTOSMOTOS WHERE id = " + motoId;
+		String query = "SELECT * FROM APARCAMIENTOSMOTOS WHERE id=?";
 		ResultSet rset = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 
 		try {
 			this.abrirConexion();
-			stmt = connection.createStatement();
-			rset = stmt.executeQuery(query);
+			//stmt = connection.createStatement();
+			stmt = connection.prepareStatement(query);
+			stmt.setInt(1, motoId);
+			rset = stmt.executeQuery();
 
 			while (rset.next()) {
-				aptoMoto = new AparcamientoMotoVO(
+				AparcamientoMotoVO moto = new AparcamientoMotoVO(
 						rset.getDouble("latitud"), rset.getDouble("longitud"),
 						rset.getString("titulo"), rset.getString("icono"),
 						rset.getString("descripcion"),
 						rset.getString("last_update"), rset.getInt("plazas"),
 						rset.getInt("id"));
-				
+				aptoMoto = moto;
 			}
 			stmt.close();
 		} catch (SQLException e) {
