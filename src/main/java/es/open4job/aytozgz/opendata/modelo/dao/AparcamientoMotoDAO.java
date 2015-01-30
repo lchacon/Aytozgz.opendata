@@ -125,13 +125,4 @@ public class AparcamientoMotoDAO extends GenericDAO {
 		return aptoMoto;
 
 	}
-
-	/*
-	 * // prueba: muestra el numero de filas de la bd public static void
-	 * main(String args[]) { AparcamientoMotoDAO motoDAO = new
-	 * AparcamientoMotoDAO( "oracle.jdbc.driver.OracleDriver",
-	 * "jdbc:oracle:thin:test/test@54.154.192.80:1521:XE", "test", "test");
-	 * List<AparcamientoMotoVO> list = motoDAO.getLstAparcamientoMoto();
-	 * System.out.println(list.size()); }
-	 */
 }

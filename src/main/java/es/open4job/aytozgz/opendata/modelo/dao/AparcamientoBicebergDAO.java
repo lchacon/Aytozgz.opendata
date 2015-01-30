@@ -72,16 +72,4 @@ public class AparcamientoBicebergDAO extends GenericDAO {
 
 		return lstAparcmtoBiceberg;
 	}
-/*
-	// prueba: muestra el numero de filas de la bd
-	public static void main(String args[]) {
-		AparcamientoBicebergDAO lst = new AparcamientoBicebergDAO(
-				"oracle.jdbc.driver.OracleDriver",
-				"jdbc:oracle:thin:test/test@54.154.192.80:1521:XE", "test",
-				"test");
-		List<AparcamientoBicebergVO> lstAparcmtoBiceberg = lst
-				.getLstAparcamientoBiceberg();
-		System.out.println(lstAparcmtoBiceberg.size());
-	}
-*/
 }

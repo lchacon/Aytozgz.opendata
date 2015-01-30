@@ -1,5 +1,11 @@
 package es.open4job.aytozgz.opendata.modelo.vo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class AparcamientoBicebergVO {
 	private int id;
 	private double latitud;
@@ -72,5 +78,37 @@ public class AparcamientoBicebergVO {
 				+ "latitud = " + latitud + ", " + "longitud = " + longitud
 				+ ", " + "icon = " + icon + ", " + "title = " + title + ", "
 				+ "link = " + link + " ]");
+	}
+
+	public void borrarArchivoCSV(boolean borrar) {
+		if (borrar) {
+			File archivo = new File("/var/www/html/aparcamientoBiceberg.csv");
+			archivo.delete();
+		}
+	}
+
+	public void escribirCSV() {
+		File archivo = new File("/var/www/html/aparcamientoBiceberg.csv");
+		String texto = null;
+
+		if (archivo.exists()) {
+			texto = "'" + link + "','" + title + "','" + icon + "','" + latitud
+					+ "','" + longitud + "','" + id + "'\n";
+		} else {
+			texto = "'LINK','TITULO','ICONO','LATITUD','LONGITUD','ID'\n";
+			texto = texto + "'" + link + "','" + title + "','" + icon + "','"
+					+ latitud + "','" + longitud + "','" + id + "'\n";
+		}
+
+		try {
+			FileWriter fwriter = new FileWriter(archivo, true);
+			fwriter.write('\ufeff');
+			fwriter.write(texto);
+			fwriter.flush();
+			fwriter.close();
+		} catch (IOException e) {
+			Logger.getLogger(AparcamientoMotoVO.class.getName()).log(
+					Level.SEVERE, null, e);
+		}
 	}
 }

@@ -1,5 +1,11 @@
 package es.open4job.aytozgz.opendata.modelo.vo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class AparcamientoMotoVO {
 
 	private double latitud;
@@ -96,6 +102,40 @@ public class AparcamientoMotoVO {
 				+ "icon = " + icon + ", " + "descripcion = " + descripcion
 				+ ", " + "lastUpdate = " + lastUpdated + ", " + " plazas = "
 				+ plazas + ", " + "id = " + id + ", ");
+	}
+
+	public void borrarArchivoCSV(boolean borrar) {
+		if (borrar) {
+			File archivo = new File("/var/www/html/aparcamientoMoto.csv");
+			archivo.delete();
+		}
+	}
+
+	public void escribirCSV() {
+		File archivo = new File("/var/www/html/aparcamientoMoto.csv");
+		String texto = null;
+
+		if (archivo.exists()) {
+			texto = "'" + id + "','" + title + "','" + descripcion + "','"
+					+ plazas + "','" + lastUpdated + "','" + latitud + "','"
+					+ longitud + "','" + icon + "'\n";
+		} else {
+			texto = "'ID','TITULO','DESCRIPCION','PLAZAS','LAST_UPDATE','LATITUD','LONGITUD','ICONO'\n";
+			texto = texto + "'" + id + "','" + title + "','" + descripcion
+					+ "','" + plazas + "','" + lastUpdated + "','" + latitud
+					+ "','" + longitud + "','" + icon + "'\n";
+		}
+
+		try {
+			FileWriter fwriter = new FileWriter(archivo, true);
+			fwriter.write('\ufeff');
+			fwriter.write(texto);
+			fwriter.flush();
+			fwriter.close();
+		} catch (IOException e) {
+			Logger.getLogger(AparcamientoMotoVO.class.getName()).log(
+					Level.SEVERE, null, e);
+		}
 	}
 
 }

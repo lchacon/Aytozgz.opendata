@@ -5,17 +5,30 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
 import es.open4job.aytozgz.opendata.modelo.dao.AparcamientoBicebergDAO;
 import es.open4job.aytozgz.opendata.modelo.dao.AparcamientoMotoDAO;
 import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoBicebergVO;
 import es.open4job.aytozgz.opendata.modelo.vo.AparcamientoMotoVO;
 
 public class AparcamientosMain {
+<<<<<<< HEAD
 	
 	public static final Logger logger = Logger
 			.getLogger(AparcamientoMotoDAO.class.getName());
 
 	public static void main(String[] args) {
+=======
+	public static void main(String[] args) throws JRException {
+>>>>>>> 4152c98ce48a4202b1f252b823a174cba8acf172
 
 		String driver = "oracle.jdbc.driver.OracleDriver";
 
@@ -28,6 +41,9 @@ public class AparcamientosMain {
 
 		String url = "jdbc:oracle:thin:" + user + "/" + password + "@" + host
 				+ ":" + puerto + ":" + sid;
+
+		boolean borrarMotoCSV = true;
+		boolean borrarBicebergCSV = true;
 
 		// AparcamientoMoto
 		AparcamientoMotoDAO aparcamientoMotoDAO = new AparcamientoMotoDAO(
@@ -44,9 +60,16 @@ public class AparcamientosMain {
 				AparcamientoMotoVO moto = iterator.next();
 				System.out.println(moto.toString());
 
+				// borro el CSV para que no se dupliquen los datos
+				moto.borrarArchivoCSV(borrarMotoCSV);
+				borrarMotoCSV = false; // para que solo se ejecute una vez
+
+				// creo archivo CSV en local /var/www/html/aparcamientoMoto.csv
+				moto.escribirCSV();
 			}
 		}
 
+<<<<<<< HEAD
 		//Detalles Aparcamiento Moto
 				AparcamientoMotoVO motoDetalle = aparcamientoMotoDAO.getDetailAparcamientoMoto(222);
 				String detalles="Descripción: "+motoDetalle.getDescripcion()+" "+
@@ -70,6 +93,13 @@ public class AparcamientosMain {
 									"Titulo: "+motoDetalle.getTitle());
 				 */
 		
+=======
+		// Detalles Aparcamiento Moto
+		AparcamientoMotoVO motoDetalle = aparcamientoMotoDAO
+				.getDetailAparcamientoMoto(222);
+		System.out.println(motoDetalle.toString());
+
+>>>>>>> 4152c98ce48a4202b1f252b823a174cba8acf172
 		// AparcamientoBiceberg
 		AparcamientoBicebergDAO aparcamientoBicebergDAO = new AparcamientoBicebergDAO(
 				driver, url, user, password);
@@ -82,7 +112,26 @@ public class AparcamientosMain {
 			while (iterator.hasNext()) {
 				AparcamientoBicebergVO biceberg = iterator.next();
 				System.out.println(biceberg.toString());
+
+				// borro el CSV para que no se dupliquen los datos
+				biceberg.borrarArchivoCSV(borrarBicebergCSV);
+				borrarBicebergCSV = false; // para que solo se ejecute una vez
+
+				// creo archivo CSV en local /var/www/html/aparcamientoMoto.csv
+				biceberg.escribirCSV();
 			}
 		}
+
+		JasperReport reporte = (JasperReport) JRLoader
+				.loadObjectFromFile("plantillas/plantillaBiceberg.jasper");
+		JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null,
+				new JRBeanCollectionDataSource(bicebergs));
+
+		JRExporter exporter = new JRPdfExporter();
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+		exporter.setParameter(JRExporterParameter.OUTPUT_FILE,
+				new java.io.File("reporteBiceberg.pdf"));
+		exporter.exportReport();
+
 	}
 }
