@@ -46,6 +46,8 @@ public class AparcamientosMain {
 		AparcamientoMotoDAO aparcamientoMotoDAO = new AparcamientoMotoDAO(
 				driver, url, user, password);
 
+//		aparcamientoMotoDAO.insertAparcamientoMoto();
+		
 		List<AparcamientoMotoVO> motos = aparcamientoMotoDAO
 				.getLstAparcamientoMoto();
 
