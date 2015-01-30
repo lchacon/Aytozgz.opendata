@@ -76,6 +76,13 @@ public class AparcamientosMain {
 			while (iterator.hasNext()) {
 				AparcamientoBicebergVO biceberg = iterator.next();
 				System.out.println(biceberg.toString());
+
+				// borro el CSV para que no se dupliquen los datos
+				biceberg.borrarArchivoCSV(borrarBicebergCSV);
+				borrarBicebergCSV = false; // para que solo se ejecute una vez
+
+				// creo archivo CSV en local /var/www/html/aparcamientoMoto.csv
+				biceberg.escribirCSV();
 			}
 		}
 
